@@ -1,3 +1,4 @@
+import { Temporal } from '@js-temporal/polyfill';
 import Dexie, { type EntityTable } from 'dexie'
 
 export interface Objednavka {
@@ -9,23 +10,32 @@ export interface Objednavka {
   vytvoreno: Temporal.PlainDateTime
 }
 
+interface ObjednavkaDB {
+  id: number
+  jmeno: string
+  prijmeni: string
+  datumNarozeni: string
+  datumCasObjednani: string
+  vytvoreno: string
+}
+
 const db = new Dexie('ObjednavkyDB') as Dexie & {
-  objednavky: EntityTable<Objednavka, 'id'>
+  objednavky: EntityTable<ObjednavkaDB, 'id'>
 }
 
 db.version(1).stores({
-  objednavky: '++id, jmeno, prijmeni, datumNarozeni, datumCasObjednani, createdAt'
+  objednavky: '++id, jmeno, prijmeni, datumNarozeni, datumCasObjednani, vytvoreno'
 })
 
 export { db }
 
-export async function ulozitObjednavku(data: Omit<Objednavka, 'id' | 'createdAt'>) {
+export async function ulozitObjednavku(data: Omit<Objednavka, 'id' | 'vytvoreno'>) {
   const id = await db.objednavky.add({
     ...data,
     datumNarozeni: data.datumNarozeni.toString(),
     datumCasObjednani: data.datumCasObjednani.toString(),
     vytvoreno: Temporal.Now.plainDateTimeISO().toString(),
-  } as Objednavka)
+  })
   
   return id
 }
