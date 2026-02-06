@@ -7,6 +7,7 @@ export interface Objednavka {
   prijmeni: string
   datumNarozeni: Temporal.PlainDate
   datumCasObjednani: Temporal.PlainDateTime
+  nahradniCas?: Temporal.PlainTime
   vytvoreno: Temporal.PlainDateTime
 }
 
@@ -16,6 +17,7 @@ interface ObjednavkaDB {
   prijmeni: string
   datumNarozeni: string
   datumCasObjednani: string
+  nahradniCas?: string
   vytvoreno: string
 }
 
@@ -34,6 +36,7 @@ export async function ulozitObjednavku(data: Omit<Objednavka, 'id' | 'vytvoreno'
     ...data,
     datumNarozeni: data.datumNarozeni.toString(),
     datumCasObjednani: data.datumCasObjednani.toString(),
+    nahradniCas: data.nahradniCas?.toString(),
     vytvoreno: Temporal.Now.plainDateTimeISO().toString(),
   })
   
@@ -46,6 +49,7 @@ export async function ziskatVsechnyObjednavky(): Promise<Objednavka[]> {
     ...row,
     datumNarozeni: Temporal.PlainDate.from(row.datumNarozeni as unknown as string),
     datumCasObjednani: Temporal.PlainDateTime.from(row.datumCasObjednani as unknown as string),
+    nahradniCas: row.nahradniCas ? Temporal.PlainTime.from(row.nahradniCas as unknown as string) : undefined,
     vytvoreno: Temporal.PlainDateTime.from(row.vytvoreno as unknown as string),
   }))
 }

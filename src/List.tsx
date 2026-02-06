@@ -36,21 +36,17 @@ export function List() {
           >
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
               <div>
-                <span className="text-sm font-medium text-gray-600">Jméno:</span>
-                <p className="text-gray-900">{objednavka.jmeno}</p>
+                <span className="text-sm font-medium text-gray-600 block">Jméno:</span>
+                <p className="text-gray-900">{objednavka.jmeno} {objednavka.prijmeni}</p>
               </div>
               <div>
-                <span className="text-sm font-medium text-gray-600">Příjmení:</span>
-                <p className="text-gray-900">{objednavka.prijmeni}</p>
-              </div>
-              <div>
-                <span className="text-sm font-medium text-gray-600">Datum narození:</span>
+                <span className="text-sm font-medium text-gray-600 block">Datum narození:</span>
                 <p className="text-gray-900">
                   {objednavka.datumNarozeni.toLocaleString('cs-CZ', { dateStyle: 'long' })}
                 </p>
               </div>
               <div>
-                <span className="text-sm font-medium text-gray-600">Datum objednání:</span>
+                <span className="text-sm font-medium text-gray-600 block">Datum objednání:</span>
                 <p className="text-gray-900">
                   {objednavka.datumCasObjednani.toLocaleString('cs-CZ', {
                     weekday: 'long',
@@ -61,6 +57,16 @@ export function List() {
                     minute: '2-digit'
                   })}
                 </p>
+              </div>
+              <div>
+                <span className="text-sm font-medium text-gray-600 block">Náhradní čas:</span>
+                {objednavka.nahradniCas ? (
+                  <p className="text-gray-900">
+                    {objednavka.nahradniCas.toLocaleString('cs-CZ', { hour: '2-digit', minute: '2-digit' })}
+                  </p>
+                ) : (
+                  <p className="text-gray-900 italic">nezvolen</p>
+                )}
               </div>
             </div>
             <div className="mt-2 pt-2 border-t border-gray-100">

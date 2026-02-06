@@ -7,6 +7,7 @@ interface FormValues {
     prijmeni: string
     datumNarozeni: string
     datumCasObjednani: string
+    nahradniCas: string
 }
 
 export function Form() {
@@ -18,6 +19,7 @@ export function Form() {
             prijmeni: '',
             datumNarozeni: '',
             datumCasObjednani: minDateTimeValue,
+            nahradniCas: '',
         },
         validate: (values) => {
             const errors: Partial<Record<keyof FormValues, string>> = {}
@@ -47,6 +49,7 @@ export function Form() {
                     prijmeni: values.prijmeni,
                     datumNarozeni: Temporal.PlainDate.from(values.datumNarozeni),
                     datumCasObjednani: Temporal.PlainDateTime.from(values.datumCasObjednani),
+                    nahradniCas: values.nahradniCas ? Temporal.PlainTime.from(values.nahradniCas) : undefined,
                 }
                 const id = await ulozitObjednavku(data)
                 console.log('Objednávka uložena s ID:', id)
@@ -159,6 +162,27 @@ export function Form() {
                     />
                     {formik.touched.datumCasObjednani && formik.errors.datumCasObjednani && (
                         <span className="text-red-500 text-sm mt-1">{formik.errors.datumCasObjednani}</span>
+                    )}
+                </div>
+
+                <div className="flex flex-col">
+                    <label
+                        htmlFor="nahradniCas"
+                        className="text-sm font-medium text-gray-700 mb-1.5"
+                    >
+                        Náhradní čas
+                    </label>
+                    <input
+                        id="nahradniCas"
+                        name="nahradniCas"
+                        type="time"
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        value={formik.values.nahradniCas}
+                        className="w-full px-3 py-2.5 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent focus:bg-white outline-none transition sm:px-4 sm:py-3"
+                    />
+                    {formik.touched.nahradniCas && formik.errors.nahradniCas && (
+                        <span className="text-red-500 text-sm mt-1">{formik.errors.nahradniCas}</span>
                     )}
                 </div>
 

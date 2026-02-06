@@ -2,6 +2,7 @@
   "version": "5",
   "specifiers": {
     "npm:@eslint/js@^9.39.1": "9.39.2",
+    "npm:@js-temporal/polyfill@~0.5.1": "0.5.1",
     "npm:@tailwindcss/vite@^4.1.18": "4.1.18_vite@7.3.1__@types+node@24.10.9__picomatch@4.0.3_@types+node@24.10.9",
     "npm:@types/node@^24.10.1": "24.10.9",
     "npm:@types/react-dom@^19.2.3": "19.2.3_@types+react@19.2.10",
@@ -387,6 +388,12 @@
       "dependencies": [
         "@jridgewell/resolve-uri",
         "@jridgewell/sourcemap-codec"
+      ]
+    },
+    "@js-temporal/polyfill@0.5.1": {
+      "integrity": "sha512-hloP58zRVCRSpgDxmqCWJNlizAlUgJFqG2ypq79DCvyv9tHjRYMDOcPFjzfl/A1/YxDvRCZz8wvZvmapQnKwFQ==",
+      "dependencies": [
+        "jsbi"
       ]
     },
     "@rolldown/pluginutils@1.0.0-beta.53": {
@@ -1191,6 +1198,9 @@
       ],
       "bin": true
     },
+    "jsbi@4.3.2": {
+      "integrity": "sha512-9fqMSQbhJykSeii05nxKl4m6Eqn2P6rOlYiS+C5Dr/HPIU/7yZxu5qzbs40tgaFORiw2Amd0mirjxatXYMkIew=="
+    },
     "jsesc@3.1.0": {
       "integrity": "sha512-/sM3dO2FOzXjKQhJuo0Q173wf2KOo8t4I8vHy6lF9poUp7bKT0/NHE8fPX23PwfhnykfqnC2xRxOnVw5XuGIaA==",
       "bin": true
@@ -1604,6 +1614,7 @@
     "packageJson": {
       "dependencies": [
         "npm:@eslint/js@^9.39.1",
+        "npm:@js-temporal/polyfill@~0.5.1",
         "npm:@tailwindcss/vite@^4.1.18",
         "npm:@types/node@^24.10.1",
         "npm:@types/react-dom@^19.2.3",
